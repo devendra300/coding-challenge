@@ -1,0 +1,33 @@
+<div class="mt-20 ">
+  <div class="box-border bg-gray-300 h-32 w-100 p-3 border-3 h-56 grid grid-cols-5 gap-3 flex content-center" [formGroup]="form">
+    <div *ngFor="let field of formFields">
+      <ng-container [ngSwitch]="field.type">
+        <div *ngSwitchCase="'select'">
+          <mat-form-field [ngClass]="field.class">
+            <label>{{ field.label }}</label>
+            <mat-select [formControlName] ="field.name" (selectionChange)="handleCondition(field)">
+              <mat-option *ngFor="let option of field.options" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngSwitchCase="'date'">
+          <mat-form-field [ngClass]="field.class">
+              <label>{{ field.label }}</label>
+              <input matInput [matDatepicker]="picker" [placeholder]="'mm/dd/yy'" [formControlName]="field.name">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div *ngSwitchCase="'number'">
+          <mat-form-field [ngClass]="field.class">
+            <mat-label>{{ field.label }}</mat-label>
+            <input matInput [formControlName]="field.name" type="number">
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </div>
+</div>
+</div>
+

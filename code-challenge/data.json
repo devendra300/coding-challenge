@@ -1,0 +1,62 @@
+[
+   {
+    "type": "select",
+    "label": "Age Group",
+    "name": "ageGroup",
+    "options": [
+        { "label": "Infant", "value": "infant" },
+        { "label": "Child", "value": "child" },
+        { "label": "Teenager", "value": "teenager" },
+        { "label": "Young Adult", "value": "young_adult" },
+        { "label": "Adult", "value": "adult" },
+        { "label": "Senior", "value": "senior" } 
+     ],
+     "defaultValue":"adult",
+     "class": "age-group-class",
+     "conditions": {
+        "onChange": "changeAgeRange"
+     }
+    },
+    {
+        "type": "select",
+        "label": "Age Range",
+        "name": "ageRange",
+        "options": [
+            { "label": "0-2 years", "value": "0-2" },
+            { "label": "3-12 years", "value": "3-12" },
+            { "label": "13-19 years", "value": "13-19" },
+            { "label": "20-39 years", "value": "20-39" },
+            { "label": "40-59 years", "value": "40-59" },
+            { "label": "60+ years", "value": "60+" } 
+         ],
+         "defaultValue":"20-39",
+         "class": "age-range-class"
+    },
+    {
+        "type": "date",
+        "label": "Start Date",
+        "name": "startDate",
+        "defaultValue": "",
+        "class": "date-picker-class"
+    },
+    {
+        "type": "date",
+        "label": "End Date",
+        "name": "endDate",
+        "defaultValue": "",
+        "class": "date-picker-class",
+        "conditions": {
+            "onChange": "updateDuration"
+         }
+    },
+    {
+        "type": "number",
+        "label": "Duration (days)",
+        "name": "duration",
+        "defaultValue": "",
+        "class": "duration-class",
+        "conditions": {
+            "onChange": "updateEndDate"
+         }
+    }
+]
