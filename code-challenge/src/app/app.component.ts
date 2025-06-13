@@ -87,9 +87,9 @@ export class AppComponent implements OnInit {
       infant:'0-2',
       child: '3-12',
       teenager:'13-19',
-      young_adult: '20-39',
-      adult: '40-59',
-      senior:'60+'
+      young_adult: '20-34',
+      adult: '35-59',
+      senior:'65'
     };
     this.form.patchValue({ ageRange: ageGroupToRange[ageGroup] });
   }
