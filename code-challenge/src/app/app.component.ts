@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import data  from '../../data.json';
@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClient } from '@angular/common/http';
 
 type ConditionHandler = (field: any) => void;
 type AgeGroup = 'infant' | 'child' | 'teenager' | 'young_adult' | 'adult' | 'senior';
@@ -38,6 +39,7 @@ interface ConditionHandlers {
 export class AppComponent implements OnInit {
   form!: FormGroup;
   formFields: any[] = [];
+  productData: any;
   
   conditionHandlers: ConditionHandlers = {
     changeAgeRange:this.changeAgeRange.bind(this),
@@ -45,9 +47,10 @@ export class AppComponent implements OnInit {
     updateEndDate:this.updateEndDate.bind(this)
   }; 
 
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder, private cdref: ChangeDetectorRef, private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.handleProducts();
     this.form = this.fb.group({
       ageGroup: [''],
       ageRange: [''],
@@ -55,7 +58,7 @@ export class AppComponent implements OnInit {
       endDate: [''],
       duration: ['']
     });
-    this.buildForm(data);
+    
     this.form.get('endDate')?.valueChanges.subscribe((value: any) =>{
       this.updateDuration();
     });
@@ -64,11 +67,21 @@ export class AppComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(): void {
+    this.buildForm(data);
+    this.cdref.detectChanges();
+  }
+
   buildForm(fields: any[]) {
     this.formFields = fields;
     for(const field of fields) {
       this.form.addControl(field.name, this.fb.control(field.defaultValue || '', Validators.required));
     }
+  }
+
+  handleProducts() {
+   this.productData = this.http.get('https://fakestoreapi.com/products');
+   console.log(this.productData);
   }
 
   handleCondition(field: any) {
@@ -109,10 +122,16 @@ export class AppComponent implements OnInit {
     const startDate = this.form.get('startDate')?.value;
     const duration = this.form.get('duration')?.value;
 
+    let tiny= 'large';
     if(startDate && duration){
+      let tiny = 'small';
+      tiny = 'big';
+      const larger = 'L';
       const endDate = addDays(new Date(startDate), duration);
       this.form.patchValue({endDate});
-
     }
+    let data = new Promise((resolve, reject) => {
+      
+    })
   }
 }

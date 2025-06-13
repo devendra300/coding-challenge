@@ -11,7 +11,7 @@
         { "label": "Adult", "value": "adult" },
         { "label": "Senior", "value": "senior" } 
      ],
-     "defaultValue":"adult",
+     "defaultValue":"senior",
      "class": "age-group-class",
      "conditions": {
         "onChange": "changeAgeRange"
