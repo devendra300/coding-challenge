@@ -27,6 +27,14 @@
           </mat-form-field>
         </div>
       </ng-container>
+      <mat-form-field [ngClass]="field.class">
+        <label>{{ field.label }}</label>
+        <mat-select [formControlName] ="field.name" (selectionChange)="handleCondition(field)">
+          <mat-option *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 </div>
 </div>
